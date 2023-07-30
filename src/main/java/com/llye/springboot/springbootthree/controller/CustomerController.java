@@ -47,7 +47,7 @@ public class CustomerController {
     @PutMapping("{id}")
     public ResponseEntity<CustomerDto> updateCustomer(@PathVariable("id") long id, @RequestBody CustomerRequestDto customerRequestDto) {
         Optional<CustomerDto> maybeCustomer = customerService.update(id, customerRequestDto);
-        return maybeCustomer.map(customerDto -> new ResponseEntity<>(customerDto, HttpStatus.OK))
+        return maybeCustomer.map(customer -> new ResponseEntity<>(customer, HttpStatus.OK))
                             .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

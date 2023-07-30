@@ -36,21 +36,21 @@ public class Account implements Serializable {
     @ToString.Exclude
     private Customer customer;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private ZonedDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at", nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private ZonedDateTime updatedAt;
 
     @PrePersist
-    private void prePersistFunction(){
+    private void prePersist(){
         ZonedDateTime now = Instant.now().atZone(ZoneId.of("UTC"));;
         this.createdAt = now;
         this.updatedAt = now;
     }
 
     @PreUpdate
-    public void preUpdateFunction(){
+    public void preUpdate(){
         this.updatedAt = Instant.now().atZone(ZoneId.of("UTC"));;
     }
 }

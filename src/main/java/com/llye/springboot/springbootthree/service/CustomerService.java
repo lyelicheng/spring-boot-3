@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -55,8 +56,12 @@ public class CustomerService {
         Optional<Customer> maybeCustomer = customerRepository.findById(id);
         if (maybeCustomer.isPresent()) {
             Customer customer = maybeCustomer.get();
-            customer.setFirstName(customerRequestDto.getFirstName());
-            customer.setLastName(customerRequestDto.getLastName());
+            if (Objects.nonNull(customerRequestDto.getFirstName())) {
+                customer.setFirstName(customerRequestDto.getFirstName());
+            }
+            if (Objects.nonNull(customerRequestDto.getLastName())) {
+                customer.setLastName(customerRequestDto.getLastName());
+            }
             return Optional.of(CustomerDto.toDto(customerRepository.save(customer)));
         }
         return Optional.empty();

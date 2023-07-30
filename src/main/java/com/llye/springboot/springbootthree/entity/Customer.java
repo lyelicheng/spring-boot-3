@@ -48,14 +48,14 @@ public class Customer implements Serializable {
     private ZonedDateTime updatedAt;
 
     @PrePersist
-    private void prePersistFunction(){
+    private void prePersist(){
         ZonedDateTime now = Instant.now().atZone(ZoneId.of("UTC"));;
         this.createdAt = now;
         this.updatedAt = now;
     }
 
     @PreUpdate
-    public void preUpdateFunction(){
+    public void preUpdate(){
         this.updatedAt = Instant.now().atZone(ZoneId.of("UTC"));;
     }
 }
