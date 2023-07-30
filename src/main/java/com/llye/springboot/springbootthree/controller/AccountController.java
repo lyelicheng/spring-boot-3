@@ -2,6 +2,7 @@ package com.llye.springboot.springbootthree.controller;
 
 import com.llye.springboot.springbootthree.dto.AccountDto;
 import com.llye.springboot.springbootthree.dto.AccountRequestDto;
+import com.llye.springboot.springbootthree.exception.BusinessException;
 import com.llye.springboot.springbootthree.service.AccountService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class AccountController {
     }
 
     @PostMapping("/{customerId}/accounts")
-    public ResponseEntity<AccountDto> createAccountForCustomer(@PathVariable Long customerId, @RequestBody AccountRequestDto accountRequestDto) {
+    public ResponseEntity<AccountDto> createAccountForCustomer(@PathVariable Long customerId, @RequestBody AccountRequestDto accountRequestDto) throws BusinessException {
         Optional<AccountDto> maybeAccount = accountService.createAccountForCustomer(customerId, accountRequestDto);
         return maybeAccount.map(account -> new ResponseEntity<>(account, HttpStatus.CREATED))
                            .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -55,12 +56,8 @@ public class AccountController {
     }
 
     @DeleteMapping("/{customerId}/accounts/{accountId}")
-    public ResponseEntity<HttpStatus> deleteAccountForCustomer(@PathVariable Long customerId, @PathVariable Long accountId) {
-        try {
-            accountService.deleteAccountForCustomer(customerId, accountId);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<HttpStatus> deleteAccountForCustomer(@PathVariable Long customerId, @PathVariable Long accountId) throws BusinessException {
+        accountService.deleteAccountForCustomer(customerId, accountId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

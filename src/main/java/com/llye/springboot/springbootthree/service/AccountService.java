@@ -4,12 +4,14 @@ import com.llye.springboot.springbootthree.dto.AccountDto;
 import com.llye.springboot.springbootthree.dto.AccountRequestDto;
 import com.llye.springboot.springbootthree.entity.Account;
 import com.llye.springboot.springbootthree.entity.Customer;
+import com.llye.springboot.springbootthree.exception.BusinessException;
 import com.llye.springboot.springbootthree.repository.AccountRepository;
 import com.llye.springboot.springbootthree.repository.CustomerRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.math.RoundingMode;
@@ -30,10 +32,10 @@ public class AccountService {
         this.customerRepository = customerRepository;
     }
 
-    public Optional<AccountDto> createAccountForCustomer(Long customerId, AccountRequestDto accountRequestDto) {
+    public Optional<AccountDto> createAccountForCustomer(Long customerId, AccountRequestDto accountRequestDto) throws BusinessException {
         Optional<Customer> maybeCustomer = customerRepository.findById(customerId);
         if (maybeCustomer.isEmpty()) {
-            throw new IllegalArgumentException("Invalid customer id.");
+            throw new BusinessException(HttpStatus.BAD_REQUEST, "Invalid customer id.");
         }
         Account account = accountRepository.save(Account.builder()
                                                         .type(accountRequestDto.getType())
@@ -84,10 +86,10 @@ public class AccountService {
         return Optional.empty();
     }
 
-    public void deleteAccountForCustomer(Long customerId, Long accountId) {
+    public void deleteAccountForCustomer(Long customerId, Long accountId) throws BusinessException {
         Optional<Account> maybeAccount = accountRepository.findByIdAndCustomerId(accountId, customerId);
         if (maybeAccount.isEmpty()) {
-            throw new IllegalArgumentException("Invalid account id for customer id - " + customerId + ".");
+            throw new BusinessException(HttpStatus.BAD_REQUEST, "Invalid account id for customer id - " + customerId + ".");
         }
         accountRepository.deleteById(accountId);
     }
