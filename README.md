@@ -3,10 +3,10 @@
 ## Introduction
 Spring Boot v3 comes with several exciting new features that enhance the development experience and performance of applications. Some of the key highlights include:
 
-1. Upgraded Dependencies: The v3 release includes updated dependencies, which contribute to better performance, security, and stability of your applications.
-2. Java 17 Support: With Spring Boot v3, you can take advantage of the latest features and enhancements in Java 17, ensuring your application stays up-to-date with the latest language improvements.
-3. Improved Auto-Configuration: Auto-configuration has been fine-tuned in v3 to provide more intelligent defaults, reducing the need for explicit configuration and simplifying the development process.
-4. Enhanced Reactive Support: Spring Boot v3 further improves its support for reactive programming, making it easier to build responsive and scalable applications.
+1. **Upgraded Dependencies**: The v3 release includes updated dependencies, which contribute to better performance, security, and stability of your applications.
+2. **Java 17 Support**: With Spring Boot v3, you can take advantage of the latest features and enhancements in Java 17, ensuring your application stays up-to-date with the latest language improvements.
+3. **Improved Auto-Configuration**: Auto-configuration has been fine-tuned in v3 to provide more intelligent defaults, reducing the need for explicit configuration and simplifying the development process.
+4. **Enhanced Reactive Support**: Spring Boot v3 further improves its support for reactive programming, making it easier to build responsive and scalable applications.
 
 ## Micrometer Tracing with Zipkin
 
