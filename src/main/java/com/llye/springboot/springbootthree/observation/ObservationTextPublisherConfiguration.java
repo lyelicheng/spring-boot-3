@@ -11,11 +11,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ObservationTextPublisherConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(ObservationTextPublisherConfiguration.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ObservationTextPublisherConfiguration.class);
 
     @Bean
     public ObservationHandler<Observation.Context> observationTextPublisher() {
-        return new ObservationTextPublisher(log::info);
+        return new ObservationTextPublisher(LOG::info);
     }
 
 }

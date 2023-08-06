@@ -1,59 +1,68 @@
 package com.llye.springboot.springbootthree.observation;
 
+import io.micrometer.common.lang.NonNull;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 public class SimpleLoggingHandler implements ObservationHandler<Observation.Context> {
 
-    private static final Logger log = LoggerFactory.getLogger(SimpleLoggingHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleLoggingHandler.class);
 
     private static String toString(Observation.Context context) {
-        return null == context ? "(no context)" : context.getName()
+        return Objects.isNull(context) ? "(no context)" : context.getName()
                 + " (" + context.getClass().getName() + "@" + System.identityHashCode(context) + ")";
     }
 
     private static String toString(Observation.Event event) {
-        return null == event ? "(no event)" : event.getName();
+        return Objects.isNull(event) ? "(no event)" : event.getName();
     }
 
     @Override
-    public boolean supportsContext(Observation.Context context) {
+    public boolean supportsContext(@NonNull Observation.Context context) {
         return true;
     }
 
     @Override
-    public void onStart(Observation.Context context) {
-        log.info("Starting context " + toString(context));
+    public void onStart(@NonNull Observation.Context context) {
+        String format = String.format("Starting context %s", toString(context));
+        LOG.info(format);
     }
 
     @Override
-    public void onError(Observation.Context context) {
-        log.info("Error for context " + toString(context));
+    public void onError(@NonNull Observation.Context context) {
+        String format = String.format("Error for context %s", toString(context));
+        LOG.info(format);
     }
 
     @Override
-    public void onEvent(Observation.Event event, Observation.Context context) {
-        log.info("Event for context " + toString(context) + " [" + toString(event) + "]");
+    public void onEvent(@NonNull Observation.Event event, @NonNull Observation.Context context) {
+        String format = String.format("Event for context %s [%s]", toString(context), toString(event));
+        LOG.info(format);
     }
 
     @Override
-    public void onScopeOpened(Observation.Context context) {
-        log.info("Scope opened for context " + toString(context));
+    public void onScopeOpened(@NonNull Observation.Context context) {
+        String format = String.format("Scope opened for context %s", toString(context));
+        LOG.info(format);
 
     }
 
     @Override
-    public void onScopeClosed(Observation.Context context) {
-        log.info("Scope closed for context " + toString(context));
+    public void onScopeClosed(@NonNull Observation.Context context) {
+        String format = String.format("Scope closed for context %s", toString(context));
+        LOG.info(format);
     }
 
     @Override
-    public void onStop(Observation.Context context) {
-        log.info("Stopping context " + toString(context));
+    public void onStop(@NonNull Observation.Context context) {
+        String format = String.format("Stopping context %s", toString(context));
+        LOG.info(format);
     }
 
 }
