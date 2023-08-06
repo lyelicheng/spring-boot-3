@@ -1,4 +1,4 @@
-package com.llye.springboot.springbootthree.observation;
+package com.llye.springboot.springbootthree.log;
 
 import io.micrometer.common.lang.NonNull;
 import io.micrometer.observation.Observation;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.Objects;
 
 @Component
-public class SimpleLoggingHandler implements ObservationHandler<Observation.Context> {
+public class ObservationLoggingHandler implements ObservationHandler<Observation.Context> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleLoggingHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ObservationLoggingHandler.class);
 
     private static String toString(Observation.Context context) {
         return Objects.isNull(context) ? "(no context)" : context.getName()

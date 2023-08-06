@@ -1,4 +1,4 @@
-package com.llye.springboot.springbootthree.observation;
+package com.llye.springboot.springbootthree.config.observation;
 
 import io.micrometer.observation.ObservationRegistry;
 import io.micrometer.observation.aop.ObservedAspect;
